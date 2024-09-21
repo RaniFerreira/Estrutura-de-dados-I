@@ -72,10 +72,7 @@ struct Cliente{
         cout << "Sexo (M ou F): " << endl;
         cin >> sexo;
         
-        dNasc.lerData();
-        
-        
-        
+        dNasc.lerData();  
         
     }
     
@@ -138,11 +135,6 @@ int main()
                 break;
         }
     } while (opcao != 3);
-    
-    
-    
-    
-
     
 
     return 0;
