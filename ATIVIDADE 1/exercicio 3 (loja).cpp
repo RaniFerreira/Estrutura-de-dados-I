@@ -63,6 +63,29 @@ struct Loja{
     
 };
 
+double calcularMediaSalarios(Loja loja[], int contador) {
+    double somaSalarios = 0;
+    for (int i = 0; i < contador; i++) {
+        somaSalarios += loja[i].calcularSalario();
+    }
+    return (contador > 0) ? somaSalarios / contador : 0;
+}
+
+int funcionarioMaiorSalario(Loja loja[], int contador) {
+    if (contador == 0) return -1; 
+    
+    int indiceMaiorSalario = 0;
+    double maiorSalario = loja[0].calcularSalario();
+    
+    for (int i = 1; i < contador; i++) {
+        if (loja[i].calcularSalario() > maiorSalario) {
+            maiorSalario = loja[i].calcularSalario();
+            indiceMaiorSalario = i;
+        }
+    }
+    return indiceMaiorSalario;
+}
+
 
 
 int main()
@@ -83,33 +106,54 @@ int main()
       cout << "Escolha uma opcao: ";
       cin >> opcao;
       
-      switch(opcao){
-          case 1: 
-          
-          if(contador >= 10){
-              cout << "Capacidade Máxima de cadastros atingida!" << endl;
-          }
-          else{
-              loja[contador].leitura();
-              contador++;
-          }
-          break;
-          
-          case 2:
-          
-          if(contador == 0){
-              cout << "Não há funcionários cadastrados!" << endl;
-          }
-          else{
-              for(int i=0;i < contador; i++){
-                  cout << "\nFuncionário " << (i + 1) << ":\n";
-                  loja[i].listar();
-              }
-          }
-          break;
-        
-      }
-    }while(opcao != 5);
+      switch (opcao) {
+            case 1:
+                if (contador >= 10) {
+                    cout << "Capacidade Máxima de cadastros atingida!" << endl;
+                } else {
+                    loja[contador].leitura();
+                    contador++;
+                }
+                break;
+            
+            case 2:
+                if (contador == 0) {
+                    cout << "Não há funcionários cadastrados!" << endl;
+                } else {
+                    for (int i = 0; i < contador; i++) {
+                        cout << "\nFuncionário " << (i + 1) << ":\n";
+                        loja[i].listar();
+                    }
+                }
+                break;
+            
+            case 3:
+                if (contador == 0) {
+                    cout << "Não há funcionários cadastrados!" << endl;
+                } else {
+                    cout << fixed << setprecision(2) << "Média Salarial: " << calcularMediaSalarios(loja, contador) << endl;
+                }
+                break;
+
+            case 4:
+                if (contador == 0) {
+                    cout << "Não há funcionários cadastrados!" << endl;
+                } else {
+                    int indice = funcionarioMaiorSalario(loja, contador);
+                    cout << "Funcionário com maior salário:\n";
+                    loja[indice].listar();
+                }
+                break;
+
+            case 5:
+                cout << "Saindo..." << endl;
+                break;
+            
+            default:
+                cout << "Opção inválida!" << endl;
+                break;
+        }
+    } while (opcao != 5);
     
     
 
