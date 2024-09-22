@@ -42,22 +42,22 @@ struct Loja{
     
     }
     
-    int calcularSalario(){
+    double calcularSalario(){
         
-        int salarioLiquido = (salarioBase + beneficio) - desconto;
+        double salarioLiquido = (salarioBase + beneficio) - desconto;
         
         return salarioLiquido;
     }
     
     void listar(){
         
-        Loja lo;
+        
         cout << "Nome: " << nome <<endl;
         cout << "Cargo: " << cargo << endl;
         cout << fixed << setprecision(2) << "Salario Base: "<< salarioBase << endl;
         cout << fixed << setprecision(2) <<  "Valor do beneficio: " << beneficio << endl;
         cout << fixed << setprecision(2) << "Valor do desconto: " << desconto << endl;
-        cout << fixed << setprecision(2) << "Salario Líquido: " << lo.calcularSalario() << endl;
+        cout << fixed << setprecision(2) << "Salario Líquido: " << calcularSalario() << endl;
         
     }
     
