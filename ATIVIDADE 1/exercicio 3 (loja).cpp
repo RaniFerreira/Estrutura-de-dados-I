@@ -26,9 +26,11 @@ struct Loja{
     void leitura(){
        
        cout << "Insira o nome do funcionário: " << endl;
-       cin >> nome;
+       cin.ignore();
+       getline(cin,nome);
        cout << "Insira o cargo: " << endl;
-       cin >> cargo;
+       cin.ignore();
+       getline(cin, cargo);
        cout << "Digite o salário: " << endl;
        cin >> salarioBase;
        cout << "Digite o valor do beneficio: " << endl;
@@ -47,6 +49,7 @@ struct Loja{
         double salarioLiquido = (salarioBase + beneficio) - desconto;
         
         return salarioLiquido;
+        
     }
     
     void listar(){
