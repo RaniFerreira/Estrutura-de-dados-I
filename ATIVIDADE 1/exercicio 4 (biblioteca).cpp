@@ -21,9 +21,11 @@ struct Livro{
     void ler(){
         
         cout << "Digite o titulo do livro: " << endl;
-        cin >> titulo;
+        cin.ignore();
+        getline(cin,titulo);
         cout << "Digite o autor deste livro: " << endl;
-        cin >> autor;
+        cin.ignore();
+        getline(cin, autor);
         cout << "Digite a quantidade de paginas: "<< endl;
         cin >> numeroPaginas;
     }
