@@ -14,111 +14,93 @@ Criar operações também para exibir a média salarial da loja e exibir quem re
 
 using namespace std;
 
-
-struct Loja{
-    
+struct Loja {
     string nome;
     string cargo;
     double salarioBase;
     double beneficio;
     double desconto;
-    
-    void leitura(){
-       
-       cout << "Insira o nome do funcionário: " << endl;
-       cin.ignore();
-       getline(cin,nome);
-       cout << "Insira o cargo: " << endl;
-       cin.ignore();
-       getline(cin, cargo);
-       cout << "Digite o salário: " << endl;
-       cin >> salarioBase;
-       cout << "Digite o valor do beneficio: " << endl;
-       cin >> beneficio;
-       cout << "Digite o vaor a ser descontado: " << endl;
-       cin >> desconto;
-       
-       Loja l;
-       
-       l.calcularSalario();
-    
+
+    void leitura() {
+        cout << "Insira o nome do funcionário: " << endl;
+        cin.ignore();
+        getline(cin, nome);
+        cout << "Insira o cargo: " << endl;
+        getline(cin, cargo);
+        cout << "Digite o salário: " << endl;
+        cin >> salarioBase;
+        cout << "Digite o valor do benefício: " << endl;
+        cin >> beneficio;
+        cout << "Digite o valor a ser descontado: " << endl;
+        cin >> desconto;
     }
-    
-    double calcularSalario(){
-        
-        double salarioLiquido = (salarioBase + beneficio) - desconto;
-        
-        return salarioLiquido;
-        
+
+    double calcularSalario() {
+        return (salarioBase + beneficio) - desconto;
     }
-    
-    void listar(){
-        
-        
-        cout << "Nome: " << nome <<endl;
+
+    void listar() {
+        cout << "Nome: " << nome << endl;
         cout << "Cargo: " << cargo << endl;
-        cout << fixed << setprecision(2) << "Salario Base: "<< salarioBase << endl;
-        cout << fixed << setprecision(2) <<  "Valor do beneficio: " << beneficio << endl;
+        cout << fixed << setprecision(2) << "Salário Base: " << salarioBase << endl;
+        cout << fixed << setprecision(2) << "Valor do benefício: " << beneficio << endl;
         cout << fixed << setprecision(2) << "Valor do desconto: " << desconto << endl;
-        cout << fixed << setprecision(2) << "Salario Líquido: " << calcularSalario() << endl;
-        
+        cout << fixed << setprecision(2) << "Salário Líquido: " << calcularSalario() << endl;
     }
-    
+
+    static void calcularMediaSalarios(Loja loja[], int contador) {
+        double somaSalarios = 0;
+        for (int i = 0; i < contador; i++) {
+            somaSalarios += loja[i].calcularSalario();
+        }
+        double media = (contador > 0) ? somaSalarios / contador : 0;
+        cout << fixed << setprecision(2) << "Média Salarial: " << media << endl;
+    }
+
+    static void funcionarioMaiorSalario(Loja loja[], int contador) {
+        if (contador == 0) {
+            cout << "Não há funcionários cadastrados!" << endl;
+            return;
+        }
+        int indiceMaiorSalario = 0;
+        double maiorSalario = loja[0].calcularSalario();
+
+        for (int i = 1; i < contador; i++) {
+            if (loja[i].calcularSalario() > maiorSalario) {
+                maiorSalario = loja[i].calcularSalario();
+                indiceMaiorSalario = i;
+            }
+        }
+        cout << "Funcionário com maior salário:\n";
+        loja[indiceMaiorSalario].listar();
+    }
 };
 
-double calcularMediaSalarios(Loja loja[], int contador) {
-    double somaSalarios = 0;
-    for (int i = 0; i < contador; i++) {
-        somaSalarios += loja[i].calcularSalario();
-    }
-    return (contador > 0) ? somaSalarios / contador : 0;
-}
-
-int funcionarioMaiorSalario(Loja loja[], int contador) {
-    if (contador == 0) return -1; 
-    
-    int indiceMaiorSalario = 0;
-    double maiorSalario = loja[0].calcularSalario();
-    
-    for (int i = 1; i < contador; i++) {
-        if (loja[i].calcularSalario() > maiorSalario) {
-            maiorSalario = loja[i].calcularSalario();
-            indiceMaiorSalario = i;
-        }
-    }
-    return indiceMaiorSalario;
-}
-
-
-
-int main()
-{
+int main() {
     Loja loja[10];
-    int  contador = 0;
+    int contador = 0;
     int opcao;
-    int media;
-    
-    do{
-      
-      cout << "MENU" << endl;
-      cout << "1. Cadastrar Cliente\n";
-      cout << "2. Listar Clientes\n";
-      cout << "3. Visualizar média salarial da loja" << endl;
-      cout << "4. Funcionário com maior Salario" << endl;
-      cout << "5. Sair\n";
-      cout << "Escolha uma opcao: ";
-      cin >> opcao;
-      
-      switch (opcao) {
+
+    do {
+        cout << "MENU" << endl;
+        cout << "1. Cadastrar Funcionário\n";
+        cout << "2. Listar Funcionários\n";
+        cout << "3. Visualizar média salarial da loja" << endl;
+        cout << "4. Funcionário com maior Salário" << endl;
+        cout << "5. Sair\n";
+        cout << "Escolha uma opção: ";
+        cin >> opcao;
+
+        switch (opcao) {
             case 1:
                 if (contador >= 10) {
-                    cout << "Capacidade Máxima de cadastros atingida!" << endl;
+                    cout << "Capacidade máxima de cadastros atingida!" << endl;
                 } else {
                     loja[contador].leitura();
                     contador++;
                 }
                 break;
-            
+
             case 2:
                 if (contador == 0) {
                     cout << "Não há funcionários cadastrados!" << endl;
@@ -129,12 +111,12 @@ int main()
                     }
                 }
                 break;
-            
+
             case 3:
                 if (contador == 0) {
                     cout << "Não há funcionários cadastrados!" << endl;
                 } else {
-                    cout << fixed << setprecision(2) << "Média Salarial: " << calcularMediaSalarios(loja, contador) << endl;
+                    Loja::calcularMediaSalarios(loja, contador);
                 }
                 break;
 
@@ -142,23 +124,19 @@ int main()
                 if (contador == 0) {
                     cout << "Não há funcionários cadastrados!" << endl;
                 } else {
-                    int indice = funcionarioMaiorSalario(loja, contador);
-                    cout << "Funcionário com maior salário:\n";
-                    loja[indice].listar();
+                    Loja::funcionarioMaiorSalario(loja, contador);
                 }
                 break;
 
             case 5:
-                cout << "Saindo..." << endl;
+                cout << "Programa finalizado!" << endl;
                 break;
-            
+
             default:
                 cout << "Opção inválida!" << endl;
                 break;
         }
     } while (opcao != 5);
-    
-    
 
     return 0;
 }
