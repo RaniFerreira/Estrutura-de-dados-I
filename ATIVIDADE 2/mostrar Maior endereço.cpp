@@ -18,6 +18,8 @@ int main()
     pont1 = &var1;
     pont2 = &var2;
     
+    cout << pont1 << endl << pont2 << endl;
+    
     if(pont1 > pont2){
         cout << "O maior endereço é: " << pont1 << endl;
     }
