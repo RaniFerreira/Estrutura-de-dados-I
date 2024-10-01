@@ -1,53 +1,35 @@
 /******************************************************************************
 
-Escreva uma função que dado um número real passado como parâmetro, retorne a parte inteira e a parte fracionária deste número.
+Escreva uma função que dado um número real passado como parâmetro,
+retorne a parte inteira e a parte fracionária deste número.
 Escreva um programa que chama esta função.
-
 *******************************************************************************/
-
 #include <iostream>
 #include <cmath>
-
 using namespace std;
 
-struct Divisao{
-    double inteiro;
+double* separar (double *pont){
+    
+    int inteiro;
     double fracionado;
-    double valor;
-    double *pont;
     
-    void ler(){
-        
-        cout << "Digite o valor: " << endl;
-        cin  >> valor;
-        
-        pont = &valor;
-        separar();
-        
-    }
+    inteiro = floor(*pont);
+    fracionado =  *pont - inteiro ;
     
-    void separar(){
-        
-        inteiro = floor(valor); // função para tirar o inteiro
-        fracionado = valor - inteiro;
-    }
+    cout << "Inteiro: " << inteiro << endl;
+    cout << "Fracionado: " << fracionado << endl;
     
-    void imprimir(){
-        
-        cout << "inteiro: " << inteiro << endl;
-        cout << "fracionado: " << fracionado << endl;
-        cout << "endereço do valor real : " << pont << endl;
-    }
-    
-};
+    return pont;
+}
 
 int main()
 {
-    Divisao d;
+    double valor;
     
-    d.ler();
-    d.imprimir();
+    cout << "digite um valor real: " << endl;
+    cin >> valor;
     
+    cout << separar(&valor) << "  <- endereço do valor: " << endl;
 
     return 0;
 }
