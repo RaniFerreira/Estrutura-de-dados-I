@@ -132,6 +132,9 @@ struct List{
         if(contador <= 1){
             return;
         }
+        if(contador == 2){
+            deletarTras();
+        }
         
         Node* aux = primeiro;
         Node* deletar = aux->proximo;
